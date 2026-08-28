@@ -119,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-4">
             <div className="mb-4">
               <img
-                src="/images/logo-asih-putera-white.svg"
+                src="/images/logo-daycare.png"
                 alt="Day Care Asih Putera - Ruang Aman Pertama untuk Tumbuh dengan Kasih Sayang"
                 className="h-12 w-auto object-contain"
               />
