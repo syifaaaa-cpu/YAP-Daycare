@@ -107,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({
             aria-label="Day Care Asih Putera"
           >
             <img
-              src="/images/logo-asih-putera.svg"
+              src="/images/logo-daycare.png"
               alt="Day Care Asih Putera - Ruang Aman Pertama untuk Tumbuh dengan Kasih Sayang"
               className="h-10 sm:h-12 md:h-13 w-auto object-contain transition duration-200 group-hover:scale-102"
             />
