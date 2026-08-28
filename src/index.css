@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --asih-green: #00473A;
+    --asih-light-green: #006C59;
+    --asih-orange: #C37932;
+    --asih-orange-hover: #AA6525;
+    --asih-light: #FAF7F0;
+    --asih-cream: #F5EFE0;
+    --asih-yellow: #F5B041;
+    --asih-pastel-pink: #FADBD8;
+    --asih-pastel-blue: #D4E6F1;
+    
+    /* Raudhah Theme Tokens */
+    --raudhah-teal: #00A896;
+    --raudhah-teal-dark: #028090;
+    --raudhah-teal-light: #E0F7F6;
+    --raudhah-gold: #F39C12;
+    --raudhah-gold-light: #FEF9E7;
+    --raudhah-dark: #16332A;
+    --raudhah-paper: #FAF7F0;
+  }
+}
+
+.font-serif {
+  font-family: "Merriweather", Georgia, Cambria, serif;
+}
+
+.font-sans {
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Custom Palette Utility Classes */
+.bg-asih-green { background-color: #00473A; }
+.bg-asih-light-green { background-color: #006C59; }
+.bg-asih-orange { background-color: #C37932; }
+.bg-asih-light { background-color: #FAF7F0; }
+.bg-asih-cream { background-color: #F5EFE0; }
+
+.bg-raudhah-teal { background-color: #00A896; }
+.hover\:bg-raudhah-teal-dark:hover { background-color: #028090; }
+.text-raudhah-teal { color: #00A896; }
+.border-raudhah-teal { border-color: #00A896; }
+
+.text-asih-green { color: #00473A; }
+.text-asih-light-green { color: #006C59; }
+.text-asih-orange { color: #C37932; }
+.text-raudhah-dark { color: #16332A; }
+
+.border-asih-green { border-color: #00473A; }
+.border-asih-orange { border-color: #C37932; }
+
+/* Subtle Geometric Star Islamic Pattern & Paper Texture */
+.bg-geometric-stars {
+  background-color: #FAF7F0;
+  background-image: 
+    radial-gradient(#C37932 0.85px, transparent 0.85px),
+    radial-gradient(#00A896 0.85px, transparent 0.85px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.bg-paper-texture {
+  background-color: #FAF7F0;
+  background-image: 
+    radial-gradient(rgba(0, 108, 89, 0.04) 1px, transparent 0),
+    radial-gradient(rgba(195, 121, 50, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* Islamic Star Motif Watermark */
+.bg-arabesque-stars {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23006C59' fill-opacity='0.035' fill-rule='evenodd'%3E%3Cpath d='M30 0l4 12 12-4-4 12 12 4-12 4 4 12-12-4-4 12-4-12-12 4 4-12-12-4 12-4-4-12 12 4z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Glowing Button & Elements */
+.glow-teal {
+  box-shadow: 0 0 18px 2px rgba(0, 168, 150, 0.45);
+}
+
+.glow-teal-hover:hover {
+  box-shadow: 0 0 24px 4px rgba(0, 168, 150, 0.65);
+}
+
+/* Tactile Toy-Block 3D Button and Card Effect */
+.toy-block-card {
+  box-shadow: 0 6px 0 0 rgba(0, 71, 58, 0.12), 0 12px 24px -4px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toy-block-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 0 0 rgba(0, 71, 58, 0.16), 0 20px 30px -4px rgba(0, 0, 0, 0.1);
+}
+
+.toy-block-btn {
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.15);
+  transition: all 0.15s ease;
+}
+
+.toy-block-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.18);
+}
+
+.toy-block-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+/* Keyframes & Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(-2deg);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 168, 150, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 12px rgba(0, 168, 150, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 168, 150, 0);
+  }
+}
+
+@keyframes book-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 12px rgba(243, 156, 18, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 22px rgba(0, 168, 150, 0.7));
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 5s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+.animate-book-glow {
+  animation: book-glow 3s ease-in-out infinite;
+}

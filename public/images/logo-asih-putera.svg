@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 180" fill="none" className="w-full h-auto">
+  <g fill="#006C59">
+    <!-- Emblem Left: Santriwati (Hijab) & Santriwan (Peci) with Open Book -->
+    <!-- Girl Hijab Silhouette -->
+    <path d="M78 26 C54 26 36 44 36 68 C36 86 42 104 36 122 C32 134 14 142 0 144 L0 166 C24 166 48 158 64 146 C74 158 90 166 110 166 C122 166 134 160 142 152 C140 135 136 112 130 90 C125 68 118 46 104 32 C96 28 87 26 78 26 Z" />
+    
+    <!-- Girl Face Cutout (White) -->
+    <ellipse cx="76" cy="70" rx="19" ry="23" fill="#FFFFFF" />
+    
+    <!-- Boy Peci -->
+    <path d="M124 10 L188 10 C194 10 198 14 198 22 L198 42 C198 46 194 48 188 48 L124 48 C118 48 114 46 114 42 L114 22 C114 14 118 10 124 10 Z" />
+    
+    <!-- Boy Face Cutout (White) & Neck/Collar -->
+    <path d="M114 52 L198 52 C202 72 200 95 188 108 C180 116 172 120 157 122 C142 120 134 116 126 108 C114 95 110 72 114 52 Z" />
+    <ellipse cx="156" cy="74" rx="23" ry="26" fill="#FFFFFF" />
+    
+    <!-- Boy Body / Shoulders -->
+    <path d="M124 122 C112 126 98 138 95 152 L95 168 L200 168 C204 168 208 160 206 146 C204 130 190 122 178 122 C168 126 146 126 124 122 Z" />
+    
+    <!-- Open Book / Al-Qur'an with dynamic sweep -->
+    <path d="M0 134 Q60 138 106 166 L106 178 L0 178 Q10 164 0 148 Z" />
+    <!-- White Page lines radiating across book -->
+    <path d="M0 138 Q60 142 106 168 L106 172 Q58 146 0 143 Z" fill="#FFFFFF" />
+    <path d="M0 146 Q60 149 106 174 L106 177 Q58 153 0 151 Z" fill="#FFFFFF" />
+    <path d="M0 154 Q60 156 106 180 L106 180 Q58 160 0 158 Z" fill="#FFFFFF" />
+    
+    <!-- Book notches/ribbons at base -->
+    <path d="M36 178 L42 168 L48 178 Z" fill="#FFFFFF" />
+    <path d="M64 178 L70 168 L76 178 Z" fill="#FFFFFF" />
+    <path d="M92 178 L98 168 L104 178 Z" fill="#FFFFFF" />
+
+    <!-- Solid Vertical Divider Line -->
+    <rect x="236" y="2" width="7" height="176" rx="3.5" />
+
+    <!-- Typography: DAY CARE ASIH PUTERA -->
+    <text x="272" y="58" font-family="'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" letter-spacing="4" fill="#00A896">
+      DAY CARE
+    </text>
+
+    <text x="270" y="152" font-family="'Plus Jakarta Sans', 'Montserrat', system-ui, -apple-system, sans-serif" font-size="104" font-weight="900" letter-spacing="-1.5" fill="#00473A">
+      ASIH PUTERA
+    </text>
+  </g>
+</svg>
