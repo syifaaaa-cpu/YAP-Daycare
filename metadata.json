@@ -1,0 +1,6 @@
+{
+  "name": "Daycare & TK Asih Putera",
+  "description": "Website resmi Day Care Asih Putera - Ruang Aman Pertama untuk Tumbuh dengan Kasih Sayang, rutinitas sehat, stimulasi sesuai usia, dan pengenalan nilai tauhid berbasis Panca Waluya (Cageur, Bageur, Bener, Pinter, Singer).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
