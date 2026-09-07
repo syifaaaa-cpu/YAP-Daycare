@@ -14,8 +14,9 @@ import { Footer } from "@/components/Footer";
 import { getFeaturedPrograms } from "@/services/featuredProgramService";
 import { getTestimonials } from "@/services/testimonialService";
 import { getNews } from "@/services/newsService";
+import { getSiteInformation } from "@/services/siteService";
+import { getSliders } from "@/services/sliderService"; // <-- Import service slider
 
-// Konfigurasi Route Segment (Harus berada di luar komponen)
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -23,13 +24,16 @@ export default async function Home() {
   const programsData = await getFeaturedPrograms();
   const testimonialsData = await getTestimonials();
   const newsData = await getNews();
+  const siteInfo = await getSiteInformation();
+  const slidersData = await getSliders(); // <-- Ambil data slider dari API
 
   return (
     <main className="min-h-screen flex flex-col">
       <Header />
 
       <div className="flex-grow">
-        <HeroSection />
+        {/* Kirim data sliders ke HeroSection */}
+        <HeroSection sliders={slidersData} />
         <WhyUsSection />
         <CoreValuesSection />
         <ProgramsSection />
@@ -43,7 +47,7 @@ export default async function Home() {
         <CtaSection />
       </div>
 
-      <Footer />
+      <Footer siteInfo={siteInfo} />
     </main>
   );
 }

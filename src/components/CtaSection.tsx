@@ -2,7 +2,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-export function CtaSection({ onOpenPpdb }: { onOpenPpdb: () => void }) {
+export function CtaSection({ onOpenPpdb = () => alert("Membuka halaman PPDB 2026/2027") }: { onOpenPpdb?: () => void }) {
   return (
     <section className="ref-wrap ref-cta">
       <div>

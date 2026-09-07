@@ -10,7 +10,9 @@ interface TestimonialsAndNewsSectionProps {
 }
 
 export function TestimonialsAndNewsSection({ testimonialsData, newsData }: TestimonialsAndNewsSectionProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTestimonialModalOpen, setIsTestimonialModalOpen] = useState(false);
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+  const [isAllNewsModalOpen, setIsAllNewsModalOpen] = useState(false);
 
   const defaultTestimonials: TestimonialItem[] = [
     {
@@ -28,8 +30,8 @@ export function TestimonialsAndNewsSection({ testimonialsData, newsData }: Testi
   const testimonials = testimonialsData && testimonialsData.length > 0 ? testimonialsData : defaultTestimonials;
   const displayedTestimonials = testimonials.slice(0, 2);
 
-  // Murni mengambil dari database backend CMS, batasi maksimal 2 item tanpa data cadangan statis
-  const displayedNews = newsData && newsData.length > 0 ? newsData.slice(0, 2) : [];
+  const newsList = newsData || [];
+  const displayedNews = newsList.slice(0, 2);
 
   return (
     <section className="ref-wrap ref-bottom-grid py-12 relative">
@@ -43,7 +45,7 @@ export function TestimonialsAndNewsSection({ testimonialsData, newsData }: Testi
             Apa Kata Orang Tua?
           </h2>
           <button 
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsTestimonialModalOpen(true)}
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-amber-700 bg-amber-100/85 hover:bg-amber-200 px-4 py-2 rounded-full transition-colors shadow-2xs shrink-0 cursor-pointer"
           >
             Lihat Selengkapnya <ArrowRight className="w-4 h-4" />
@@ -85,12 +87,12 @@ export function TestimonialsAndNewsSection({ testimonialsData, newsData }: Testi
           >
             Berita & Agenda
           </h2>
-          <a 
-            href="/berita" 
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-amber-700 bg-amber-100/80 hover:bg-amber-200 px-4 py-2 rounded-full transition-colors shadow-2xs shrink-0"
+          <button 
+            onClick={() => setIsAllNewsModalOpen(true)}
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-amber-700 bg-amber-100/80 hover:bg-amber-200 px-4 py-2 rounded-full transition-colors shadow-2xs shrink-0 cursor-pointer"
           >
             Lihat Selengkapnya <ArrowRight className="w-4 h-4" />
-          </a>
+          </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ref-news">
@@ -98,9 +100,16 @@ export function TestimonialsAndNewsSection({ testimonialsData, newsData }: Testi
             displayedNews.map((news, idx) => (
               <div key={idx} className="bg-white p-3 rounded-2xl border border-amber-100 shadow-sm flex flex-col justify-between min-h-[295px]">
                 <div>
-                  {news.image && (
-                    <img src={news.image} alt={news.title} className="w-full h-32 object-cover rounded-xl mb-3" />
-                  )}
+                  {news.image ? (
+                    <img 
+                      src={news.image} 
+                      alt={news.title} 
+                      className="w-full h-32 object-cover rounded-xl mb-3" 
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
+                  ) : null}
                   <span className="text-[11px] text-amber-600 font-semibold block mb-1">{news.date}</span>
                   <h3 
                     style={{ fontFamily: "'Comic Sans MS', 'Quicksand', cursive, sans-serif" }}
@@ -109,12 +118,12 @@ export function TestimonialsAndNewsSection({ testimonialsData, newsData }: Testi
                     {news.title}
                   </h3>
                 </div>
-                <a 
-                  href="/berita" 
-                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800 inline-flex items-center gap-1 mt-2"
+                <button 
+                  onClick={() => setSelectedNews(news)}
+                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800 inline-flex items-center gap-1 mt-2 text-left cursor-pointer"
                 >
                   Baca Selengkapnya &rarr;
-                </a>
+                </button>
               </div>
             ))
           ) : (
@@ -125,12 +134,93 @@ export function TestimonialsAndNewsSection({ testimonialsData, newsData }: Testi
         </div>
       </div>
 
-      {/* Popup Modal untuk Semua Testimoni */}
-      {isModalOpen && (
+      {/* Popup Modal untuk Detail Satu Berita (Baca Selengkapnya) */}
+      {selectedNews && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-2xl rounded-3xl p-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            <button 
+              onClick={() => setSelectedNews(null)}
+              className="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-full transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {selectedNews.image && (
+              <img 
+                src={selectedNews.image} 
+                alt={selectedNews.title} 
+                className="w-full h-48 object-cover rounded-2xl mb-4" 
+              />
+            )}
+            <span className="text-xs text-amber-600 font-semibold block mb-2">{selectedNews.date}</span>
+            <h3 
+              style={{ fontFamily: "'Comic Sans MS', 'Quicksand', cursive, sans-serif" }}
+              className="text-xl font-bold text-[#00382E] mb-4"
+            >
+              {selectedNews.title}
+            </h3>
+            <p className="text-sm text-gray-700 leading-relaxed">
+              {selectedNews.title} merupakan salah satu rangkaian program unggulan di Yap Daycare yang berfokus pada pembentukan karakter, keceriaan, serta tumbuh kembang optimal buah hati tercinta.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Popup Modal untuk Semua Berita (Lihat Selengkapnya Berita) */}
+      {isAllNewsModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
           <div className="bg-white w-full max-w-3xl rounded-3xl p-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
             <button 
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => setIsAllNewsModalOpen(false)}
+              className="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-full transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <h3 
+              style={{ fontFamily: "'Comic Sans MS', 'Quicksand', cursive, sans-serif" }}
+              className="text-2xl font-bold text-[#00382E] mb-6 text-center"
+            >
+              Semua Berita & Agenda
+            </h3>
+
+            <div className="grid grid-cols-1 gap-4">
+              {newsList.map((item, idx) => (
+                <div key={idx} className="bg-amber-50/40 p-4 rounded-2xl border border-amber-100 flex items-center gap-4">
+                  {item.image && (
+                    <img src={item.image} alt={item.title} className="w-20 h-20 object-cover rounded-xl shrink-0" />
+                  )}
+                  <div className="flex-grow">
+                    <span className="text-[11px] text-amber-600 font-semibold block mb-1">{item.date}</span>
+                    <h4 
+                      style={{ fontFamily: "'Comic Sans MS', 'Quicksand', cursive, sans-serif" }}
+                      className="text-sm font-bold text-[#00382E] mb-2"
+                    >
+                      {item.title}
+                    </h4>
+                    <button 
+                      onClick={() => {
+                        setIsAllNewsModalOpen(false);
+                        setSelectedNews(item);
+                      }}
+                      className="text-xs font-bold text-emerald-700 hover:text-emerald-800 cursor-pointer"
+                    >
+                      Baca Selengkapnya &rarr;
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Popup Modal untuk Semua Testimoni */}
+      {isTestimonialModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-3xl rounded-3xl p-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            <button 
+              onClick={() => setIsTestimonialModalOpen(false)}
               className="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-full transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />

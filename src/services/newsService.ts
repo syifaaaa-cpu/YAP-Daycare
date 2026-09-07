@@ -46,8 +46,10 @@ export async function getNews(): Promise<NewsItem[]> {
     const items =
       json?.Data?.Content || json?.data || (Array.isArray(json) ? json : []);
 
+    // Cek isi data mentah dari CMS di terminal VS Code
+    console.log("RAW ITEMS FROM CMS:", JSON.stringify(items, null, 2));
+
     return items.map((item: any) => {
-      // Ambil judul yang bersih dari SlugTitle jika Title tidak ada
       let rawTitle = item.Title || item.judul || item.Judul;
       if (!rawTitle && item.SlugTitle) {
         rawTitle = item.SlugTitle.split("-")
@@ -55,7 +57,6 @@ export async function getNews(): Promise<NewsItem[]> {
           .join(" ");
       }
 
-      // Format tanggal
       let formattedDate = "04 Sep 2026";
       const rawDate = item.date || item.tanggal || item.TglPublish;
       if (rawDate) {
@@ -69,21 +70,30 @@ export async function getNews(): Promise<NewsItem[]> {
         }
       }
 
-      // Format URL Gambar dari CMS Laravel (biasanya tersimpan di storage)
-      let imageUrl = "/images/konten-web-daycare/hero.png";
+      // Tangkap semua kemungkinan nama key gambar/thumbnail dari Laravel
+      let imageUrl = "";
       const rawImage =
-        item.image || item.gambar || item.Image || item.Thumbnail;
-      if (rawImage) {
+        item.SignedThumbnail || 
+        item.Thumbnail || 
+        item.image || 
+        item.gambar || 
+        item.Image || 
+        item.thumbnail || 
+        item.photo || 
+        item.file ||
+        item.foto;
+
+      if (rawImage && typeof rawImage === "string") {
         if (rawImage.startsWith("http")) {
           imageUrl = rawImage;
         } else {
-          // Hilangkan slash ganda atau tambahkan prefix /storage/ jika diperlukan
           const formattedPath = rawImage.startsWith("/")
             ? rawImage
             : `/storage/${rawImage}`;
           imageUrl = `${baseApiUrl}${formattedPath}`;
         }
       }
+     
 
       return {
         title: rawTitle || "Tanpa Judul",

@@ -7,26 +7,41 @@ interface FooterProps {
   onNavigateSection: (sectionId: string) => void;
   onOpenPpdb: () => void;
   onOpenBrochure: () => void;
+  siteInfo?: {
+    address?: string;
+    phone?: string;
+    email?: string;
+    logo?: string;
+    alamat?: string;
+    telepon?: string;
+    no_hp?: string;
+    NoHp?: string;
+    Tempat?: string;
+    Email?: string;
+    alamat_email?: string;
+    email_kantor?: string;
+    Thumbnail?: string;
+  } | null;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onSubscribeNewsletter,
   onNavigateSection,
   onOpenPpdb,
-  onOpenBrochure
+  onOpenBrochure,
+  siteInfo
 }) => {
+  // Cek struktur data asli dari CMS Laravel di Console Browser (F12 -> Console)
+  console.log("Data siteInfo dari CMS Laravel:", siteInfo);
+
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      onSubscribeNewsletter(email);
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 4000);
-    }
-  };
+  // Mengambil data dinamis dengan dukungan berbagai kemungkinan nama key dari database
+  const address = siteInfo?.address || siteInfo?.alamat || siteInfo?.Tempat || "Jl. Daeng Moh. Ardiwinata No. 12, Kota Cimahi, Jawa Barat";
+  const phone = siteInfo?.phone || siteInfo?.telepon || siteInfo?.no_hp || siteInfo?.NoHp || "0812-2182-8884";
+  const emailContact = siteInfo?.email || siteInfo?.Email || siteInfo?.alamat_email || siteInfo?.email_kantor || "raudhah@asihputera.sch.id";
+  const logoUrl = siteInfo?.logo || siteInfo?.Thumbnail || "/images/logo-daycare.png";
 
   return (
     <footer id="footer" className="bg-[#00382E] text-white pt-14 pb-8 border-t-4 border-[#00A896]">
@@ -120,7 +135,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-4">
             <div className="mb-4">
               <img
-                src="/images/logo-daycare.png"
+                src={logoUrl}
                 alt="Day Care Asih Putera - Ruang Aman Pertama untuk Tumbuh dengan Kasih Sayang"
                 className="h-12 w-auto object-contain"
               />
@@ -290,18 +305,18 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-2.5 text-xs text-emerald-100/80">
               <li className="flex items-start">
                 <MapPin className="w-4 h-4 mt-0.5 mr-2 text-[#F39C12] shrink-0" />
-                <span>Jl. Daeng Moh. Ardiwinata No. 12, Kota Cimahi, Jawa Barat 40511</span>
+                <span>{address}</span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-4 h-4 mr-2 text-[#00A896] shrink-0" />
-                <a href="tel:0226652882" className="hover:text-white transition font-medium">
-                  (022) 665-2882 / 0812-2182-8884
+                <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} className="hover:text-white transition font-medium">
+                  {phone}
                 </a>
               </li>
               <li className="flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-[#00A896] shrink-0" />
-                <a href="mailto:raudhah@asihputera.sch.id" className="hover:text-white transition">
-                  raudhah@asihputera.sch.id
+                <a href={`mailto:${emailContact}`} className="hover:text-white transition">
+                  {emailContact}
                 </a>
               </li>
               <li className="pt-2 border-t border-emerald-800/80 text-[11px] text-emerald-200">
